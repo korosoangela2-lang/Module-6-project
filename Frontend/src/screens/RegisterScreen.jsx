@@ -31,43 +31,95 @@ export default function RegisterScreen() {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 heha-rise" style={{ minHeight: "100%" }}>
-      <div className="flex items-center gap-3 mt-4">
-        <button onClick={() => navigate("/login")} style={{ color: T.muted }}>
-          <ChevronLeft size={20} />
-        </button>
-        <div className="text-lg font-semibold">Create your account</div>
-      </div>
-      <form className="flex flex-col gap-4" onSubmit={submit}>
-        <Field label="Full name">
-          <TextInput required value={name} onChange={(e) => setName(e.target.value)} placeholder="Jane Doe" />
-        </Field>
-        <Field label="Email">
-          <TextInput type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" />
-        </Field>
-        <Field label="Phone number">
-          <TextInput required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 416 555 0100" />
-        </Field>
-        <Field label="Country">
-          <select value={country} onChange={(e) => setCountry(e.target.value)} style={inputStyle}>
-            {["Canada", "United Kingdom", "Australia", "United States"].map((c) => <option key={c}>{c}</option>)}
-          </select>
-        </Field>
-        <Field label="Password">
-          <div className="relative">
-            <TextInput type={show ? "text" : "password"} required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" style={{ paddingRight: 40 }} />
-            <button type="button" onClick={() => setShow((s) => !s)} className="absolute" style={{ right: 10, top: 10, color: T.faint }}>
-              {show ? <EyeOff size={16} /> : <Eye size={16} />}
+    <div
+      className="flex flex-col items-center p-6 heha-rise"
+      style={{ minHeight: "100%" }}
+    >
+      <div className="w-full" style={{ maxWidth: 640 }}>
+        <div className="heha-card">
+          <div className="flex items-center gap-3 mt-2">
+            <button
+              onClick={() => navigate("/login")}
+              style={{ color: T.muted }}
+            >
+              <ChevronLeft size={20} />
             </button>
+            <div className="text-lg font-semibold">Create your account</div>
           </div>
-        </Field>
-        {state.auth.error && (
-          <div className="flex items-center gap-2 text-xs" style={{ color: T.brick }}>
-            <AlertCircle size={14} /> {state.auth.error}
-          </div>
-        )}
-        <Button type="submit" full loading={busy}>Create account</Button>
-      </form>
+          <form className="flex flex-col gap-4 mt-3" onSubmit={submit}>
+            <Field label="Full name">
+              <TextInput
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Jane Doe"
+              />
+            </Field>
+            <Field label="Email">
+              <TextInput
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+              />
+            </Field>
+            <Field label="Phone number">
+              <TextInput
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+1 416 555 0100"
+              />
+            </Field>
+            <Field label="Country">
+              <select
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                style={inputStyle}
+              >
+                {["Canada", "United Kingdom", "Australia", "United States"].map(
+                  (c) => (
+                    <option key={c}>{c}</option>
+                  ),
+                )}
+              </select>
+            </Field>
+            <Field label="Password">
+              <div className="relative">
+                <TextInput
+                  type={show ? "text" : "password"}
+                  required
+                  minLength={8}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="At least 8 characters"
+                  style={{ paddingRight: 40 }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShow((s) => !s)}
+                  className="absolute"
+                  style={{ right: 10, top: 10, color: T.faint }}
+                >
+                  {show ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </Field>
+            {state.auth.error && (
+              <div
+                className="flex items-center gap-2 text-xs"
+                style={{ color: T.brick }}
+              >
+                <AlertCircle size={14} /> {state.auth.error}
+              </div>
+            )}
+            <Button type="submit" full loading={busy}>
+              Create account
+            </Button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

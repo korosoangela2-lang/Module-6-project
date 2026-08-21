@@ -1,8 +1,15 @@
 import { useEffect, useMemo, useReducer } from "react";
-import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
 import { GlobalStyle, SANS, T } from "./lib/theme.jsx";
+import Header from "./components/Header.jsx";
 import { api } from "./lib/api.js";
 import { reducer, initialState } from "./store/reducer.js";
 import { select } from "./store/selectors.js";
@@ -27,7 +34,10 @@ import AdminRevenueScreen from "./screens/admin/AdminRevenueScreen.jsx";
 
 function LoadingScreen() {
   return (
-    <div className="flex items-center justify-center flex-1" style={{ minHeight: "100%" }}>
+    <div
+      className="flex items-center justify-center flex-1"
+      style={{ minHeight: "100%" }}
+    >
       <Loader2 className="heha-spin" size={22} style={{ color: T.pine }} />
     </div>
   );
@@ -43,7 +53,8 @@ function RootRedirect() {
 function PublicOnly() {
   const { state } = useStore();
   if (state.auth.restoring) return <LoadingScreen />;
-  if (state.auth.token) return <Navigate to={select.isAdmin(state) ? "/admin" : "/home"} replace />;
+  if (state.auth.token)
+    return <Navigate to={select.isAdmin(state) ? "/admin" : "/home"} replace />;
   return <Outlet />;
 }
 
@@ -64,12 +75,31 @@ function AppShell() {
   const fullWidth = isAdmin && signedIn;
 
   return (
-    <div className="heha flex min-h-screen w-full justify-center" style={{ background: fullWidth ? T.paper : "#E7EAE9", fontFamily: SANS, color: T.ink }}>
+    <div
+      className="heha flex min-h-screen w-full justify-center"
+      style={{
+        background: fullWidth ? T.paper : "#E7EAE9",
+        fontFamily: SANS,
+        color: T.ink,
+      }}
+    >
       {fullWidth ? (
-        <div className="w-full"><Outlet /></div>
-      ) : (
-        <div className="heha-phone" style={{ background: "#000000", color: "#FFFFFF", boxShadow: "0 18px 50px rgba(18,22,31,0.13)" }}>
+        <div className="w-full">
           <Outlet />
+        </div>
+      ) : (
+        <div
+          className="heha-phone"
+          style={{
+            background: T.paper,
+            color: T.ink,
+            boxShadow: "0 8px 30px rgba(18,22,31,0.06)",
+          }}
+        >
+          <Header />
+          <main className="heha-container">
+            <Outlet />
+          </main>
         </div>
       )}
       <Toast />
@@ -117,7 +147,10 @@ export default function App() {
               <Route element={<UserShell />}>
                 <Route path="/home" element={<HomeScreen />} />
                 <Route path="/add-funds" element={<AddFundsScreen />} />
-                <Route path="/beneficiaries" element={<BeneficiariesScreen />} />
+                <Route
+                  path="/beneficiaries"
+                  element={<BeneficiariesScreen />}
+                />
                 <Route path="/send" element={<SendMoneyScreen />} />
                 <Route path="/transactions" element={<TransactionsScreen />} />
                 <Route path="/profile" element={<ProfileScreen />} />
@@ -129,7 +162,10 @@ export default function App() {
               <Route path="/admin" element={<AdminShell />}>
                 <Route index element={<AdminOverviewScreen />} />
                 <Route path="users" element={<AdminUsersScreen />} />
-                <Route path="transactions" element={<AdminTransactionsScreen />} />
+                <Route
+                  path="transactions"
+                  element={<AdminTransactionsScreen />}
+                />
                 <Route path="revenue" element={<AdminRevenueScreen />} />
               </Route>
             </Route>

@@ -14,8 +14,10 @@ export const T = {
   faint: "#8A939B",
 };
 
-export const SANS = "'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
-export const MONO = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, 'Roboto Mono', monospace";
+export const SANS =
+  "'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
+export const MONO =
+  "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, 'Roboto Mono', monospace";
 
 export const GlobalStyle = () => (
   <style>{`
@@ -26,14 +28,23 @@ export const GlobalStyle = () => (
     .heha :focus-visible { outline: 2px solid ${T.marigold}; outline-offset: 2px; border-radius: 4px; }
     .heha input::placeholder { color: ${T.faint}; }
     .heha-phone { display: flex; flex-direction: column; width: 100%; flex: 1; }
+    /* On larger screens present app in a centered, website-like container */
     @media (min-width: 640px) {
       .heha-phone {
-        width: 418px; height: 860px; max-height: 92vh; flex: none;
-        margin: 24px 0; border-radius: 26px; overflow: hidden;
+        width: 100%; max-width: 1100px; height: auto; max-height: none; flex: none;
+        margin: 24px auto; border-radius: 12px; overflow: visible; box-shadow: 0 8px 30px rgba(18,22,31,0.06);
       }
     }
     .heha-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
     .heha-scroll::-webkit-scrollbar-thumb { background: ${T.line}; border-radius: 99px; }
+    /* Site header and card styles for a more aesthetic, website-like look */
+    .site-header { backdrop-filter: blur(6px); }
+    .heha-container { padding: 20px; }
+    .heha-card { background: ${T.surface}; border: 1px solid ${T.line}; border-radius: 12px; padding: 18px; box-shadow: 0 6px 20px rgba(18,22,31,0.04); }
+    .heha-hero { background: linear-gradient(135deg, rgba(10,95,79,0.06), rgba(242,169,59,0.04)); border-radius: 12px; padding: 22px; }
+    .heha-sidebar { width: 220px; border-right: 1px solid ${T.line}; background: transparent; }
+    .heha-site { display: grid; grid-template-columns: 220px 1fr; gap: 20px; }
+    @media (max-width: 639px) { .heha-site { grid-template-columns: 1fr; } .heha-sidebar { display: none; } }
     @keyframes heha-tick { 0% { opacity: .35; transform: translateY(-2px); } 100% { opacity: 1; transform: none; } }
     @keyframes heha-rise { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
     @keyframes heha-spin { to { transform: rotate(360deg); } }
@@ -47,7 +58,15 @@ export const GlobalStyle = () => (
   `}</style>
 );
 
-export const inputStyle = { background: T.surface, border: `1px solid ${T.line}`, borderRadius: 10, padding: "10px 12px", fontSize: 14, color: T.ink, width: "100%" };
+export const inputStyle = {
+  background: T.surface,
+  border: `1px solid ${T.line}`,
+  borderRadius: 10,
+  padding: "10px 12px",
+  fontSize: 14,
+  color: T.ink,
+  width: "100%",
+};
 
 export const TONE = {
   pine: { bg: T.pineSoft, fg: T.pine },
@@ -57,9 +76,13 @@ export const TONE = {
 };
 
 export const STATUS_TONE = {
-  completed: "pine", active: "pine", verified: "pine",
+  completed: "pine",
+  active: "pine",
+  verified: "pine",
   pending: "marigold",
-  failed: "brick", suspended: "brick", rejected: "brick",
+  failed: "brick",
+  suspended: "brick",
+  rejected: "brick",
   unverified: "muted",
 };
 
