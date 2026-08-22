@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer } from "react";
 import {
-  BrowserRouter,
+  HashRouter,
   Navigate,
   Outlet,
   Route,
@@ -131,7 +131,7 @@ export default function App() {
   return (
     <Store.Provider value={store}>
       <GlobalStyle />
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route element={<AppShell />}>
             <Route path="/" element={<RootRedirect />} />
@@ -173,7 +173,7 @@ export default function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </Store.Provider>
   );
 }
